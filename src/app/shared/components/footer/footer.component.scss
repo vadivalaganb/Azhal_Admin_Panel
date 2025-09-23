@@ -1,0 +1,10 @@
+.footer-nav {
+    margin-left: 250px;
+    width: 81%;
+}
+@media (max-width: 767.98px) {
+    .footer-nav {
+        margin-left: 0;
+        width: 100%;
+    }
+}

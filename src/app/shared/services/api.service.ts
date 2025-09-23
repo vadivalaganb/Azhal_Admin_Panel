@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-    private baseUrl = 'http://localhost/api';
-    // private baseUrl = 'https://azhalitsolutions.com/api';
+    // private baseUrl = 'http://localhost/api';
+    private baseUrl = 'https://azhalitsolutions.com/api';
 
     constructor(private http: HttpClient) { }
     getBaseUrl(): string {
@@ -23,6 +23,11 @@ export class ApiService {
     // Home Content form
     postHomeContent(body: FormData): Observable<any> {
         return this.post<any>('home_content.php', body);
+    }
+
+    // Add delete method here
+    delete<T>(endpoint: string): Observable<T> {
+        return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
     }
 
 }

@@ -1,3 +1,13 @@
 .dropdown-item {
     color: #6C7293;
 }
+
+nav.navbar.navbar-expand.bg-secondary.navbar-dark {
+    margin-left: 250px;
+}
+
+@media (max-width: 767.98px) {
+    nav.navbar.navbar-expand.bg-secondary.navbar-dark {
+        margin-left: 0;
+    }
+}
