@@ -1,0 +1,45 @@
+.content-wrapper {
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: -250px;
+  min-height: 100vh;
+  
+  &.shifted {
+    margin-left: 0px; // Sidebar width
+    
+    @media (max-width: 768px) {
+      margin-left: 0; // No shift on mobile
+    }
+  }
+}
+
+// Sidebar overlay for mobile
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+// Back to top button positioning
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin-left: 0 !important;
+  }
+}

@@ -1,0 +1,46 @@
+:host {
+    position: fixed;
+    /* top: 56px; */
+    left: 0;
+    width: 250px;
+    height: 100%;
+    z-index: 1041;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &.show {
+        transform: translateX(0);
+    }
+
+    &.hide {
+        transform: translateX(-100%);
+    }
+
+    // Mobile specific styles
+    @media (max-width: 768px) {
+        top: 60px; // Adjust for mobile topbar height if different
+        height: calc(100vh - 60px);
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+
+// Scrollbar styling
+:host::-webkit-scrollbar {
+    width: 4px;
+}
+
+:host::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+:host::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+:host::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

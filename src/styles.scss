@@ -90,9 +90,9 @@
         margin-left: 0;
     }
 
-    .sidebar.open {
-        margin-left: -250px;
-    }
+    // .sidebar.open {
+    //     margin-left: -250px;
+    // }
 
     .content {
         width: calc(100% - 250px);
@@ -105,9 +105,9 @@
 }
 
 @media (max-width: 991.98px) {
-    .sidebar {
-        margin-left: -250px;
-    }
+    // .sidebar {
+    //     margin-left: -250px;
+    // }
 
     .sidebar.open {
         margin-left: 0;
