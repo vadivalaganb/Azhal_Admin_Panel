@@ -12,7 +12,6 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Azhal_Admin_Panel';
   loading = false;
   showBackToTop = false;
   showNavbarFooter = true;
