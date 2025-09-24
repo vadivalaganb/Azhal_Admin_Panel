@@ -29,5 +29,44 @@ export class ApiService {
     delete<T>(endpoint: string): Observable<T> {
         return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
     }
+    // --- About sections specific helpers (wrap about_content.php) ---
+    getAboutSections(): Observable<any[]> {
+        // GET about_content.php -> returns array of rows
+        return this.get<any[]>('about_content.php');
+    }
 
+    createAboutSection(formData: FormData): Observable<any> {
+        // POST to about_content.php to create
+        return this.post<any>('about_content.php', formData);
+    }
+
+    updateAboutSection(id: number, formData: FormData): Observable<any> {
+        // about_content.php supports method override via _method=PUT or id>0
+        // ensure id present in formData and also send _method=PUT
+        formData.append('id', String(id));
+        formData.append('_method', 'PUT');
+        return this.post<any>('about_content.php', formData);
+    }
+
+    deleteAboutSection(id: number): Observable<any> {
+        // DELETE request to about_content.php?id=...
+        return this.delete<any>(`about_content.php?id=${id}`);
+    }
+
+
+    // --- Items (about_items.php) ---
+    getAboutItems(sectionId?: number): Observable<any> {
+        const endpoint = sectionId ? `about_items.php?section_id=${sectionId}` : 'about_items.php';
+        return this.get<any>(endpoint);
+    }
+    createAboutItem(payload: any): Observable<any> {
+        return this.post<any>('about_items.php', payload);
+    }
+    updateAboutItem(id: number, payload: any): Observable<any> {
+        payload = { ...payload, id, _method: 'PUT' };
+        return this.post<any>('about_items.php', payload);
+    }
+    deleteAboutItem(id: number): Observable<any> {
+        return this.delete<any>(`about_items.php?id=${id}`);
+    }
 }
