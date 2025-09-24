@@ -9,7 +9,8 @@
 </app-sidebar>
 
 <!-- Main Content Wrapper -->
-<div class="content-wrapper" [class.shifted]="sidebarOpen && showNavbarFooter">
+<div
+  [ngClass]="{ 'content-wrapper': showNavbarFooter, 'shifted': sidebarOpen && showNavbarFooter }">
 
   <!-- Spinner Start -->
   <div *ngIf="loading"

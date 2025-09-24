@@ -1,14 +1,14 @@
 import { Component, HostListener } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { TopbarComponent } from "./shared/components/topbar/topbar.component";
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent, NgIf, TopbarComponent, SidebarComponent],
+  imports: [RouterOutlet, FooterComponent, NgIf, TopbarComponent, SidebarComponent, NgClass],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
