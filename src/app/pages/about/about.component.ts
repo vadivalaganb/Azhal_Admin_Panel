@@ -150,7 +150,13 @@ export class AboutComponent implements OnInit {
     this.currentSectionForItems = section;
     this.loadItems(section.id);
     this.showItemsModal = true;
+
+    // Patch section_id to the item form
+    this.itemForm.patchValue({
+      section_id: section.id
+    });
   }
+
 
   closeItemsModal(): void {
     this.showItemsModal = false;
@@ -174,15 +180,17 @@ export class AboutComponent implements OnInit {
   // open add item form
   openAddItem(): void {
     if (!this.currentSectionForItems) return;
+
     this.editingItemId = null;
     this.itemForm.reset({
-      section_id: this.currentSectionForItems.id,
+      section_id: this.currentSectionForItems.id,  // <--- important
       icon: '',
       subtitle: '',
       description: '',
       status: true
     });
   }
+
 
   // edit item
   editItem(item: any): void {
@@ -197,6 +205,8 @@ export class AboutComponent implements OnInit {
   }
 
   submitItem(): void {
+    console.log('Current Section:', this.currentSectionForItems);
+    console.log('Form Value:', this.itemForm.value);
     if (this.itemForm.invalid) {
       this.itemForm.markAllAsTouched();
       return;
