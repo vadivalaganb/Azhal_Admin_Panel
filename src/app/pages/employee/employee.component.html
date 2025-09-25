@@ -105,9 +105,9 @@
                                     formControlName="location" />
                             </div>
 
-                            <!-- Manager -->
+                            <!-- Reporting Manager -->
                             <div class="mb-3">
-                                <label class="form-label">Manager</label>
+                                <label class="form-label">Reporting Manager</label>
                                 <input class="form-control"
                                     formControlName="manager" />
                             </div>
@@ -176,7 +176,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Location</th>
-                            <th>Manager</th>
+                            <th>Reporting Manager</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -185,11 +185,14 @@
                         <tr *ngFor="let item of employeelist; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>
-                                <img *ngIf="item.profileImage"
-                                    [src]="item.profileImage" alt="Profile"
-                                    class="rounded-circle" width="40"
+                                <img *ngIf="item.profile_image"
+                                    [src]="apiService.getBaseUrl() + '/' + item.profile_image"
+                                    alt="Profile"
+                                    class="rounded-circle"
+                                    width="40"
                                     height="40">
                             </td>
+
                             <td>{{ item.name }}</td>
                             <td>{{ item.gender }}</td>
                             <td>{{ item.dob }}</td>
