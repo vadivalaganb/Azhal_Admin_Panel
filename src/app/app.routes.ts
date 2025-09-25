@@ -3,10 +3,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AboutComponent } from './pages/about/about.component';
+import { ServiceComponent } from './pages/service/service.component';
 
 export const routes: Routes = [
-  { path: '', component: SigninComponent },       // Login
-  { path: 'signup', component: SignupComponent }, // Signup
+  { path: '', component: SigninComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'service', component: ServiceComponent },
 ];

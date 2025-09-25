@@ -69,4 +69,31 @@ export class ApiService {
     deleteAboutItem(id: number): Observable<any> {
         return this.delete<any>(`about_items.php?id=${id}`);
     }
+
+    // ==============================
+    // SERVICE CONTENT (services_content.php)
+    // ==============================
+    // GET all services
+    getServiceContents(): Observable<any> {
+        return this.http.get(`${this.baseUrl}/services_content.php`);
+    }
+
+    // CREATE new service
+    createServiceContent(payload: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/services_content.php`, payload);
+    }
+
+    // UPDATE service
+    updateServiceContent(id: number, payload: any): Observable<any> {
+        payload.id = id;           // include ID for PHP
+        payload._method = 'PUT';   // mark as update
+        return this.http.post(`${this.baseUrl}/services_content.php`, payload);
+    }
+
+    // DELETE service
+    deleteServiceContent(id: number): Observable<any> {
+        // send ID as query param ?id=...
+        return this.http.delete(`${this.baseUrl}/services_content.php?id=${id}`);
+    }
+
 }
