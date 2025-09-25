@@ -95,5 +95,24 @@ export class ApiService {
         // send ID as query param ?id=...
         return this.http.delete(`${this.baseUrl}/services_content.php?id=${id}`);
     }
+    // =========================
+    // EMPLOYEE CRUD
+    // =========================
 
+    getemployeelist(): Observable<any[]> {
+        return this.get<any[]>('employee.php');
+    }
+
+    createEmployee(formData: FormData): Observable<any> {
+        return this.post<any>('employee.php', formData);
+    }
+
+    updateEmployee(id: number, formData: FormData): Observable<any> {
+        // Include ID in query params
+        return this.post<any>(`employee.php?id=${id}`, formData);
+    }
+
+    deleteEmployee(id: number): Observable<any> {
+        return this.delete<any>(`employee.php?id=${id}`);
+    }
 }

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, NgIf } from '@angular/common';
 import { ApiService } from '../../shared/services/api.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule, NgIf, CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })

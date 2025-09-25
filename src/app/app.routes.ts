@@ -4,6 +4,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ServiceComponent } from './pages/service/service.component';
+import { EmployeeComponent } from './pages/employee/employee.component';
 
 export const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -11,4 +12,5 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'service', component: ServiceComponent },
+  { path: 'employee', component: EmployeeComponent },
 ];
