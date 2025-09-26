@@ -1,101 +1,66 @@
 <div class="container-fluid px-0">
     <div class="row g-0">
-        <!-- Sidebar Start -->
         <div class="col-auto bg-secondary">
             <div class="sidebar vh-100">
-                <!-- Sidebar Start -->
-                <div class="sidebar">
-                    <nav class="navbar bg-secondary navbar-dark">
-                        <!-- <a href="index.html" class="navbar-brand mx-4 mb-3">
-                            <h3 class="text-primary"><i
-                                    class="fa fa-user-edit me-2"></i>Azhal
-                                Admin</h3>
-                        </a> -->
-                        <div class="d-flex align-items-center ms-4 mb-4"
-                            *ngIf="user">
-                            <div class="position-relative">
-                                <img class="rounded-circle"
-                                    [src]="user.avatar_url ? apiService.getBaseUrl() + '/' + user.avatar_url : 'assets/user.jpg'"
-                                    alt="Profile"
-                                    style="width: 40px; height: 40px;">
-                                <div
-                                    class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0">{{ user.username }}</h6>
-                                <span>{{ user.role_name }}</span>
-                            </div>
+                <nav class="navbar">
+                    <!-- User info -->
+                    <div class="d-flex align-items-center ms-4 mb-4"
+                        *ngIf="user">
+                        <div class="position-relative">
+                            <img class="rounded-circle"
+                                [src]="user.avatar_url ? apiService.getBaseUrl() + '/' + user.avatar_url : 'assets/user.jpg'"
+                                alt="Profile"
+                                style="width: 40px; height: 40px;">
+                            <div
+                                class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">{{ user.username }}</h6>
+                            <span>{{ user.role_name }}</span>
+                        </div>
+                    </div>
 
-                        <div class="navbar-nav w-100">
-                            <!-- <a href="index.html" class="nav-item nav-link active"><i
-                    class="fa fa-tachometer-alt me-2"></i>Dashboard</a> -->
-                            <div class="nav-item dropdown">
-                                <a href="#"
-                                    class="nav-link active dropdown-toggle"
-                                    data-bs-toggle="dropdown"><i
-                                        class="fa fa-laptop me-2"></i>CMS
-                                    Management</a>
-                                <div
-                                    class="dropdown-menu bg-transparent border-0">
-                                    <a routerLink="/home"
-                                        class="dropdown-item">Home Page</a>
-                                    <a routerLink="/about"
-                                        class="dropdown-item">About Page</a>
-                                    <a href="element.html"
-                                        class="dropdown-item">Products</a>
-                                    <a routerLink="/service"
-                                        class="dropdown-item">Services</a>
+                    <!-- Menus -->
+                    <div class="navbar-nav">
+                        <ng-container *ngFor="let menu of menus">
+                            <!-- Single link -->
+                            <a *ngIf="!menu.children"
+                                [routerLink]="menu.link"
+                                class="nav-link"
+                                [ngClass]="{'active': isActive(menu.link)}">
+                                <i [class]="menu.icon"></i> {{ menu.label }}
+                            </a>
+
+                            <!-- Dropdown menu -->
+                            <div *ngIf="menu.children" class="nav-item">
+                                <a href="javascript:void(0)"
+                                    class="nav-link d-flex align-items-center justify-content-between"
+                                    (click)="toggleDropdown(menu)"
+                                    [ngClass]="{'active': isChildActive(menu)}">
+                                    <span class="d-flex align-items-center">
+                                        <i [class]="menu.icon"></i>
+                                        <span class="ms-2">{{ menu.label
+                                            }}</span>
+                                    </span>
+                                    <i class="fa fa-chevron-down"
+                                        [ngClass]="{'rotate': menu.open}"></i>
+                                </a>
+
+                                <div class="dropdown-menu"
+                                    [class.show]="menu.open">
+                                    <a *ngFor="let child of menu.children"
+                                        [routerLink]="child.link"
+                                        class="dropdown-item"
+                                        [ngClass]="{'active': isActive(child.link)}">
+                                        {{ child.label }}
+                                    </a>
                                 </div>
+
                             </div>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle"
-                                    data-bs-toggle="dropdown"><i
-                                        class="far fa-file-alt me-2"></i>Blogs</a>
-                                <div
-                                    class="dropdown-menu bg-transparent border-0">
-                                    <a href="signin.html"
-                                        class="dropdown-item">Features</a>
-                                    <a href="signup.html"
-                                        class="dropdown-item">Our Team</a>
-                                    <a href="404.html"
-                                        class="dropdown-item">Testimonial</a>
-                                </div>
-                            </div>
-                            <a routerLink="/user"
-                                class="nav-item nav-link"><i
-                                    class="fa fa-th me-2"></i>User List</a>
-                            <a routerLink="/employee"
-                                class="nav-item nav-link"><i
-                                    class="fa fa-th me-2"></i>Employee List</a>
-                            <!--  <a href="form.html" class="nav-item nav-link"><i
-                    class="fa fa-keyboard me-2"></i>Forms</a>
-            <a href="table.html" class="nav-item nav-link"><i
-                    class="fa fa-table me-2"></i>Tables</a>
-            <a href="chart.html" class="nav-item nav-link"><i
-                    class="fa fa-chart-bar me-2"></i>Charts</a> -->
-                            <!-- <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle"
-                                    data-bs-toggle="dropdown"><i
-                                        class="far fa-file-alt me-2"></i>Pages</a>
-                                <div
-                                    class="dropdown-menu bg-transparent border-0">
-                                    <a href="signin.html"
-                                        class="dropdown-item">Sign In</a>
-                                    <a href="signup.html"
-                                        class="dropdown-item">Sign Up</a>
-                                    <a href="404.html" class="dropdown-item">404
-                                        Error</a>
-                                    <a href="blank.html"
-                                        class="dropdown-item">Blank Page</a>
-                                </div>
-                            </div> -->
-                        </div>
-                    </nav>
-                </div>
-                <!-- Sidebar End -->
+                        </ng-container>
+                    </div>
+                </nav>
             </div>
         </div>
-        <!-- Sidebar End -->
     </div>
 </div>

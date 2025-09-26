@@ -44,6 +44,27 @@
 :host::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
 }
+
 .bg-secondary {
     background-color: #0f1116 !important;
+}
+
+.sidebar .navbar .navbar-nav .nav-link {
+    margin-bottom: 10px;
+}
+
+.dropdown-menu.show {
+    background: #191c24;
+}
+.nav-link i.fa-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.nav-link i.fa-chevron-down.rotate {
+  transform: rotate(-180deg);
+}
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff !important;
+    text-decoration: none;
+    background-color: #EB1616 !important;
 }

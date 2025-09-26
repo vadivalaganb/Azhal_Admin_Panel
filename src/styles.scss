@@ -155,7 +155,7 @@
 .sidebar .navbar .dropdown-toggle::after {
     position: absolute;
     top: 15px;
-    right: 15px;
+    right: 0;
     border: none;
     content: "\f107";
     font-family: "Font Awesome 5 Free";
@@ -171,6 +171,7 @@
     justify-content: center;
     background: var(--dark);
     border-radius: 40px;
+    cursor: pointer;
 }
 
 .sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
