@@ -59,20 +59,31 @@ export class UserComponent implements OnInit {
   openForm(user?: any) {
     this.showFormModal = true;
     this.editingId = user?.id || null;
-    // this.profileImageFile = null;
-    // this.currentProfileImage = user?.avatar_url || null;
 
     this.userForm.reset({
       username: user?.username || '',
       first_name: user?.first_name || '',
       last_name: user?.last_name || '',
       email: user?.email || '',
-      password: '',
+      password: '',   // keep empty
       role_id: user?.role_id || '',
       status: user ? !!user.status : true,
       is_email_verified: user ? !!user.is_email_verified : false
     });
+
+    if (this.editingId) {
+      // Disable email when editing
+      this.userForm.get('email')?.disable();
+      // Make password optional
+      this.userForm.get('password')?.clearValidators();
+      this.userForm.get('password')?.updateValueAndValidity();
+    } else {
+      this.userForm.get('email')?.enable();
+      this.userForm.get('password')?.setValidators([Validators.required]);
+      this.userForm.get('password')?.updateValueAndValidity();
+    }
   }
+
 
   closeForm() {
     this.showFormModal = false;
@@ -87,33 +98,34 @@ export class UserComponent implements OnInit {
   //   }
   // }
 
-  onSubmit() {
-    if (this.userForm.invalid) return;
+onSubmit() {
+  if (this.userForm.invalid) return;
 
-    const payload = { ...this.userForm.value };
+  const payload: any = { ...this.userForm.value };
 
-    if (this.editingId) {
-      this.apiService.updateUser(this.editingId, payload).subscribe({
-        next: (res: any) => {
-          // Check if API returned updated user
-          if (res.success && res.updatedUser) {
-            this.userService.setUser(res.updatedUser); // update sidebar
-          }
-          this.loadUserList();
-          this.closeForm();
-        },
-        error: (err) => console.error(err)
-      });
-    } else {
-      this.apiService.createUser(payload).subscribe({
-        next: () => {
-          this.loadUserList();
-          this.closeForm();
-        },
-        error: (err) => console.error(err)
-      });
+  if (this.editingId) {
+    if (!payload.password) {
+      delete payload.password; // don’t send empty password
     }
+    this.apiService.updateUser(this.editingId, payload).subscribe({
+      next: () => {
+        this.loadUserList();
+        this.closeForm();
+      },
+      error: (err) => console.error(err)
+    });
+  } else {
+    this.apiService.createUser(payload).subscribe({
+      next: () => {
+        this.loadUserList();
+        this.closeForm();
+      },
+      error: (err) => console.error(err)
+    });
   }
+}
+
+
 
 
   openDeleteConfirm(id: number) {

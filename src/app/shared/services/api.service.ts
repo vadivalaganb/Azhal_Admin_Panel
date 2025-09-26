@@ -139,11 +139,10 @@ export class ApiService {
     }
 
     // Update user by id
-    updateUser(id: number, updatePayload: any): Observable<any> {
-        updatePayload.id = id;
-        updatePayload._method = 'PUT';
-        return this.post<any>('users.php', updatePayload);
+    updateUser(id: number, payload: any) {
+        return this.http.put<any>(`${this.baseUrl}/users.php?id=${id}`, payload);
     }
+
 
 
     // Delete user by id
