@@ -115,4 +115,59 @@ export class ApiService {
     deleteEmployee(id: number): Observable<any> {
         return this.delete<any>(`employee.php?id=${id}`);
     }
+
+    // ========================
+    // User CRUD + Sign-in
+    // ========================
+
+    // Sign-in user
+    signIn(payload: { signin: boolean; email: string; password: string; rememberMe?: boolean }): Observable<any> {
+        return this.post<any>('users.php', payload);
+    }
+
+    // Get all users or user by id if id passed
+    getUsers(id?: number): Observable<any> {
+        if (id) {
+            return this.get<any>(`users.php?id=${id}`);
+        }
+        return this.get<any>('users.php');
+    }
+
+    // Create new user
+    createUser(userPayload: any): Observable<any> {
+        return this.post<any>('users.php', userPayload);
+    }
+
+    // Update user by id
+    updateUser(id: number, updatePayload: any): Observable<any> {
+        updatePayload.id = id;
+        updatePayload._method = 'PUT';
+        return this.post<any>('users.php', updatePayload);
+    }
+
+
+    // Delete user by id
+    deleteUser(id: number): Observable<any> {
+        return this.delete<any>(`users.php?id=${id}`);
+    }
+
+    //Roles
+    getRoles(): Observable<any> {
+        return this.get<any>('roles.php');
+    }
+
+    createRole(rolePayload: any): Observable<any> {
+        return this.post<any>('roles.php', rolePayload);
+    }
+
+    updateRole(id: number, rolePayload: any): Observable<any> {
+        rolePayload.id = id;
+        rolePayload._method = 'PUT';
+        return this.post<any>('roles.php', rolePayload);
+    }
+
+    deleteRole(id: number): Observable<any> {
+        return this.delete<any>(`roles.php?id=${id}`);
+    }
+
 }

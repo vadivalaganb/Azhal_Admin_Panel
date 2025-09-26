@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.scss']
 })
