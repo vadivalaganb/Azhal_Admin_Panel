@@ -172,9 +172,11 @@
                             <td>{{ item.is_email_verified ? 'Yes' : 'No' }}</td>
                             <td class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning"
-                                    (click)="openForm(item)">Edit</button>
+                                    (click)="openForm(item)"><i
+                                        class="fa fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger"
-                                    (click)="openDeleteConfirm(item.id)">Delete</button>
+                                    (click)="openDeleteConfirm(item.id)"><i
+                                        class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>

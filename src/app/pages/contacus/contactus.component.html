@@ -32,21 +32,23 @@
                             <td>{{item.message}}</td>
                             <td>{{item.status}}</td>
                             <td class="d-flex gap-2">
-                                <button class="btn btn-info btn-sm"
-                                    (click)="viewContactUs(item)">View</button>
+                                <button class="btn btn-sm btn-warning"
+                                    (click)="viewContactUs(item)" title="View"><i
+                                        class="fa fa-edit"></i></button>
                                 <button
                                     *ngIf="item.status !== 'in_progress' && item.status !== 'resolved'"
                                     class="btn btn-sm btn-warning"
-                                    (click)="openStatusConfirm(item.id, 'in_progress')">
-                                    In Progress
+                                    (click)="openStatusConfirm(item.id, 'in_progress')" title="In Progress">
+                                   <i class="fas fa-spinner"></i>
                                 </button>
                                 <button *ngIf="item.status !== 'resolved'"
                                     class="btn btn-sm btn-success"
-                                    (click)="openStatusConfirm(item.id, 'resolved')">
-                                    Resolve
+                                    (click)="openStatusConfirm(item.id, 'resolved')" title="Resolve">
+                                    <i class="fab fa-resolving"></i>
                                 </button>
-                                <button class="btn btn-danger btn-sm"
-                                    (click)="openDeleteConfirm(item.id)">Delete</button>
+                                <button class="btn btn-sm btn-danger"
+                                    (click)="openDeleteConfirm(item.id)"><i
+                                        class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
