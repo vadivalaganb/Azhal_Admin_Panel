@@ -168,5 +168,21 @@ export class ApiService {
     deleteRole(id: number): Observable<any> {
         return this.delete<any>(`roles.php?id=${id}`);
     }
+    //Contact Us
+    getContactUsContent(): Observable<any[]> {
+        return this.get<any[]>('contact.php');
+    }
+
+    deleteContactUs(id: number): Observable<any> {
+        return this.delete<any>(`contact.php?id=${id}`);
+    }
+
+    getSingleContactUs(id: number): Observable<any> {
+        return this.get<any>(`contact.php?id=${id}`);
+    }
+
+    updateContactStatus(id: number, status: string): Observable<any> {
+        return this.http.put<any>(`${this.baseUrl}/contact.php?id=${id}`, { status });
+    }
 
 }

@@ -6,6 +6,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ServiceComponent } from './pages/service/service.component';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { UserComponent } from './pages/user/user.component';
+import { ContactUsComponent } from './pages/contacus/contactus.component';
 
 export const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'service', component: ServiceComponent },
   { path: 'employee', component: EmployeeComponent },
   { path: 'user', component: UserComponent },
+  { path: 'contactus', component: ContactUsComponent },
 ];

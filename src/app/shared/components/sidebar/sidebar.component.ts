@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
     public apiService: ApiService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Subscribe to user changes
@@ -59,28 +59,37 @@ export class SidebarComponent implements OnInit {
   setMenus(roleId: number) {
     const allMenus: Record<number, Menu[]> = {
       1: [
-        { label: 'CMS Management', icon: 'fa fa-laptop', children: [
-          { label: 'Home Page', link: '/home' },
-          { label: 'About Page', link: '/about' },
-          { label: 'Services', link: '/service' }
-        ], open: false },
+        {
+          label: 'CMS Management', icon: 'fa fa-laptop', children: [
+            { label: 'Home Page', link: '/home' },
+            { label: 'About Page', link: '/about' },
+            { label: 'Services', link: '/service' }
+          ], open: false
+        },
         { label: 'User List', icon: 'fas fa-users', link: '/user' },
-        { label: 'Employee List', icon: 'fas fa-user-secret', link: '/employee' }
+        { label: 'Employee List', icon: 'fas fa-user-secret', link: '/employee' },
+        { label: 'Contact Us', icon: 'fas fa-headset', link: '/contactus' }
       ],
       2: [
-        { label: 'CMS Management', icon: 'fa fa-laptop', children: [
-          { label: 'Home Page', link: '/home' },
-          { label: 'About Page', link: '/about' }
-        ], open: false },
-        { label: 'Blogs', icon: 'far fa-file-alt', children: [
-          { label: 'Features', link: '/features' },
-          { label: 'Our Team', link: '/team' }
-        ], open: false }
+        {
+          label: 'CMS Management', icon: 'fa fa-laptop', children: [
+            { label: 'Home Page', link: '/home' },
+            { label: 'About Page', link: '/about' }
+          ], open: false
+        },
+        {
+          label: 'Blogs', icon: 'far fa-file-alt', children: [
+            { label: 'Features', link: '/features' },
+            { label: 'Our Team', link: '/team' }
+          ], open: false
+        }
       ],
       3: [
-        { label: 'CMS Management', icon: 'fa fa-laptop', children: [
-          { label: 'Home Page', link: '/home' }
-        ], open: false }
+        {
+          label: 'CMS Management', icon: 'fa fa-laptop', children: [
+            { label: 'Home Page', link: '/home' }
+          ], open: false
+        }
       ]
     };
 

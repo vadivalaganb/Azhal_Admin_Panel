@@ -1,0 +1,78 @@
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.confirm-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 10px #000a;
+}
+
+.confirm-box button {
+  margin: 0 0.5rem;
+}
+
+.contact-details-container {
+  padding: 24px;
+  border-radius: 12px;
+  // background: #fafaff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.contact-label {
+  min-width: 120px;
+  font-weight: 500;
+  color: #627597;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-value {
+  font-size: 1.05em;
+  color: #fff;
+  margin-left: 12px;
+}
+
+.message-block {
+  // background: #edf2fa;
+  padding: 8px 12px;
+  border-radius: 6px;
+  word-break: break-word;
+}
+.status-new {
+  color: #0d6efd; // blue
+  font-weight: bold;
+}
+
+.status-in-progress {
+  color: #ffc107; // yellow
+  font-weight: bold;
+}
+
+.status-resolved {
+  color: #198754; // green
+  font-weight: bold;
+}
+
+.status-unknown {
+  color: #6c757d; // gray
+  font-weight: bold;
+}
