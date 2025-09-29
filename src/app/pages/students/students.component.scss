@@ -1,3 +1,102 @@
+.profile-card-container {
+  background: #000000;
+  border-radius: 18px;
+  box-shadow: 0px 2px 22px rgba(0, 0, 0, 0.13);
+  padding: 32px 25px;
+  //  font-family: "Roboto", Arial, sans-serif;
+  // max-width: 500px;
+  // margin: auto;
+  // background: #fff;
+  // border-radius: 18px;
+  // box-shadow: 0px 2px 22px rgba(0, 0, 0, 0.13);
+  // padding: 32px 25px;
+  // font-family: 'Roboto', Arial, sans-serif;
+}
+
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+.profile-name h2 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 7px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 1em;
+}
+
+.status-badge.active {
+  background: #e3ffd4;
+  color: #388e3c;
+  border: 1px solid #388e3c;
+}
+
+.status-badge.inactive {
+  background: #ffe6e6;
+  color: #b71c1c;
+  border: 1px solid #b71c1c;
+}
+
+.profile-details-card {
+  margin-top: 10px;
+}
+
+.profile-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-details-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 1.06em;
+}
+
+.profile-details-list i {
+  min-width: 22px;
+  text-align: center;
+  color: #888;
+}
+
+.label {
+  font-weight: 600;
+  margin: 0 9px 0 5px;
+  color: #888;
+}
+
+.value {
+  color: #fff;
+}
+
+.last-updated {
+  margin-top: 18px;
+  text-align: right;
+  color: #666;
+  font-size: 0.99em;
+}
+
 .confirm-overlay {
   position: fixed;
   top: 0;
@@ -23,59 +122,7 @@
   margin: 0 0.5rem;
 }
 
-.contact-details-container {
-  padding: 24px;
-  border-radius: 12px;
-  // background: #fafaff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-}
-
-.contact-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.contact-label {
-  min-width: 120px;
-  font-weight: 500;
-  color: #627597;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.contact-value {
-  font-size: 1.05em;
-  color: #fff;
-  margin-left: 12px;
-}
-
-.message-block {
-  // background: #edf2fa;
-  padding: 8px 12px;
-  border-radius: 6px;
-  word-break: break-word;
-}
-.status-new {
-  color: #0d6efd; // blue
-  font-weight: bold;
-}
-
-.status-in-progress {
-  color: #ffc107; // yellow
-  font-weight: bold;
-}
-
-.status-resolved {
-  color: #198754; // green
-  font-weight: bold;
-}
-
-.status-unknown {
-  color: #6c757d; // gray
-  font-weight: bold;
-}
-tr, th {
-    white-space: nowrap;
+tr,
+th {
+  white-space: nowrap;
 }

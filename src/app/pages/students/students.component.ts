@@ -15,7 +15,7 @@ export class StudentsComponent implements OnInit {
   showViewModal: boolean = false;
   confirmDeleteId: number | null = null;
 
-  constructor(private apiService: ApiService) { }
+  constructor(public apiService: ApiService) { }
 
   ngOnInit(): void {
     this.loadStudentlist();
@@ -39,8 +39,15 @@ export class StudentsComponent implements OnInit {
   }
 
   // Open student view modal
+
+  // Open student view modal
   viewStudentRecord(student: any): void {
-    this.selectedStudent = student;
+    this.selectedStudent = {
+      ...student,
+      profile_image_url: student.profile_image
+        ? this.apiService.getBaseUrl() + '/' + student.profile_image
+        : null
+    };
     this.showViewModal = true;
   }
 
@@ -83,7 +90,7 @@ export class StudentsComponent implements OnInit {
     this.apiService.updateStudentStatus(item.id, newStatus).subscribe({
       next: (res) => {
         if (res.success) {
-          item.status = newStatus; 
+          item.status = newStatus;
         }
       },
       error: (err) => {
