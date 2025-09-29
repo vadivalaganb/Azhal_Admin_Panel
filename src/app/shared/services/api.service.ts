@@ -184,5 +184,15 @@ export class ApiService {
     updateContactStatus(id: number, status: string): Observable<any> {
         return this.http.put<any>(`${this.baseUrl}/contact.php?id=${id}`, { status });
     }
+    // Get all students (for admin table)
+    getAllStudents(): Observable<any[]> {
+        return this.get<any[]>('register.php');
+    }
+    deleteStudent(id: number): Observable<any> {
+        return this.http.delete<any>(`${this.baseUrl}/register.php?id=${id}`);
+    }
+    updateStudentStatus(id: number, status: number): Observable<any> {
+        return this.http.put<any>(`${this.baseUrl}/register.php`, { id, status });
+    }
 
 }

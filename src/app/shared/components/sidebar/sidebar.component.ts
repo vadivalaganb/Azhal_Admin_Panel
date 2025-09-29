@@ -68,7 +68,8 @@ export class SidebarComponent implements OnInit {
         },
         { label: 'User List', icon: 'fas fa-users', link: '/user' },
         { label: 'Employee List', icon: 'fas fa-user-secret', link: '/employee' },
-        { label: 'Contact Us', icon: 'fas fa-headset', link: '/contactus' }
+        { label: 'Contact Us', icon: 'fas fa-headset', link: '/contactus' },
+        { label: 'Registered Students', icon: 'fas fa-user-graduate', link: '/students' }
       ],
       2: [
         {

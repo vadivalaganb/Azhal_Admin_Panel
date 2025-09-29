@@ -1,0 +1,175 @@
+<!-- Student Table -->
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <h3>Registered Students List</h3>
+
+        <div class="bg-secondary text-center rounded p-4 mt-3">
+            <div class="d-flex justify-content-between mb-3">
+                <h6>Student User List</h6>
+                <button class="btn btn-sm btn-primary"
+                    (click)="loadStudentlist()">Refresh</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="text-white">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>DOB</th>
+                            <th>Email/Mobile No</th>
+                            <th>Address</th>
+                            <th>Institution Name</th>
+                            <th>Department</th>
+                            <th>Course</th>
+                            <th>Academic Year</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of studentlist; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.first_name }} {{ item.last_name }}</td>
+                            <td>{{ item.gender }}</td>
+                            <td>{{ item.dob | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ item.contact }}</td>
+                            <td>{{ item.address }}</td>
+                            <td>{{ item.institution_name }}</td>
+                            <td>{{ item.department }}</td>
+                            <td>{{ item.course }}</td>
+                            <td>{{ item.academic_year }}</td>
+                            <td>
+                                <span [ngClass]="getStatusClass(item.status)">
+                                    {{ item.status == 1 ? 'Active' : 'Inactive'
+                                    }}
+                                </span>
+                            </td>
+                            <td class="d-flex gap-2">
+                                <button class="btn btn-sm btn-warning"
+                                    (click)="viewStudentRecord(item)"
+                                    title="View">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm"
+                                    [ngClass]="item.status === 1 ? 'btn-danger' : 'btn-success'"
+                                    (click)="toggleStatus(item)">
+                                    {{ item.status === 1 ? 'Deactivate' :
+                                    'Activate' }}
+                                </button>
+                                <button class="btn btn-sm btn-danger"
+                                    (click)="openDeleteConfirm(item.id)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Modal -->
+    <div class="modal" [class.show]="showViewModal" *ngIf="showViewModal"
+        style="display:block;">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Student Details</h5>
+                    <button type="button"
+                        class="btn btn-square btn-outline-primary m-2"
+                        (click)="closeViewModal()">X</button>
+                </div>
+                <div class="modal-body contact-details-container">
+                    <div class="contact-row">
+                        <div class="contact-label"><i class="fas fa-user"></i>
+                            Name:</div>
+                        <div class="contact-value">{{
+                            selectedStudent?.first_name }} {{
+                            selectedStudent?.last_name }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i
+                                class="fas fa-venus-mars"></i> Gender:</div>
+                        <div class="contact-value">{{ selectedStudent?.gender
+                            }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i
+                                class="fas fa-birthday-cake"></i> DOB:</div>
+                        <div class="contact-value">{{ selectedStudent?.dob |
+                            date: 'dd/MM/yyyy' }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i class="fas fa-phone"></i>
+                            Contact:</div>
+                        <div class="contact-value">{{ selectedStudent?.contact
+                            }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i class="fas fa-home"></i>
+                            Address:</div>
+                        <div class="contact-value">{{ selectedStudent?.address
+                            }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i class="fas fa-school"></i>
+                            Institution:</div>
+                        <div class="contact-value">{{
+                            selectedStudent?.institution_name }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i
+                                class="fas fa-building"></i> Department:</div>
+                        <div class="contact-value">{{
+                            selectedStudent?.department }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i class="fas fa-book"></i>
+                            Course:</div>
+                        <div class="contact-value">{{ selectedStudent?.course
+                            }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i
+                                class="fas fa-calendar"></i> Academic
+                            Year:</div>
+                        <div class="contact-value">{{
+                            selectedStudent?.academic_year }}</div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-label"><i
+                                class="fas fa-info-circle"></i> Status:</div>
+                        <div class="contact-value">
+                            <span
+                                [ngClass]="getStatusClass(selectedStudent?.status)">
+                                {{ selectedStudent?.status == 1 ? 'Active' :
+                                'Inactive' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="contact-row"
+                        *ngIf="selectedStudent?.updated_at">
+                        <div class="contact-label"><i class="fas fa-clock"></i>
+                            Last Updated:</div>
+                        <div class="contact-value">{{
+                            selectedStudent?.updated_at | date:
+                            'dd/MM/yyyy HH:mm' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation -->
+    <div *ngIf="confirmDeleteId !== null" class="confirm-overlay">
+        <div class="confirm-box p-3">
+            <p>Are you sure to delete this student?</p>
+            <button class="btn btn-success btn-sm"
+                (click)="confirmDelete()">Yes</button>
+            <button class="btn btn-danger btn-sm"
+                (click)="cancelDelete()">No</button>
+        </div>
+    </div>
+</div>
