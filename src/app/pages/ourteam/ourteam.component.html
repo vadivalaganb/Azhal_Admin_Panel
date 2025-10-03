@@ -1,0 +1,186 @@
+
+<!-- Content Start -->
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <!-- Add New Record Button -->
+        <div
+            class="mb-3 text-end d-flex align-items-center justify-content-between">
+            <h3>Our Team's</h3>
+            <button class="btn btn-sm btn-danger" (click)="openForm()">
+                <i class="fa fa-plus"></i> Add Record
+            </button>
+        </div>
+
+        <!-- Popup Form Modal -->
+        <div class="modal" [class.show]="showFormModal" style="display: block;"
+            *ngIf="showFormModal">
+            <div class="modal-dialog">
+                <div class="modal-content bg-secondary rounded h-100 p-4">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ editingId ? 'Edit' : 'Add' }}
+                            Our Team Member</h5>
+                        <button type="button"
+                            class="btn btn-square btn-outline-primary m-2"
+                            (click)="closeForm()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="ourTeamForm" (ngSubmit)="onSubmit()"
+                            enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">Name of the
+                                    Person</label>
+                                <input class="form-control"
+                                    formControlName="person_name" />
+                                <div
+                                    *ngIf="ourTeamForm.get('person_name')?.invalid && (ourTeamForm.get('person_name')?.dirty || ourTeamForm.get('person_name')?.touched)"
+                                    class="text-danger mt-1">
+                                    Person Name is required.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Designation</label>
+                                <input class="form-control"
+                                    formControlName="designation" />
+                                <div
+                                    *ngIf="ourTeamForm.get('designation')?.invalid && (ourTeamForm.get('designation')?.dirty || ourTeamForm.get('designation')?.touched)"
+                                    class="text-danger mt-1">
+                                    Designation is required.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Profile Image</label>
+                                <input type="file" class="form-control"
+                                    (change)="onFileChange($event)" />
+                            </div>
+                            <!-- Profile Image Preview -->
+                            <div class="mb-3" *ngIf="editingId && !selectedFile && currentProfileImage">
+                                <label class="form-label">Profile Image
+                                    Preview</label>
+                                <div>
+                                    <img
+                                        [src]="currentProfileImage.startsWith('http') ? currentProfileImage: apiService.getBaseUrl() + '/' + currentProfileImage"
+                                        alt="Profile Image"
+                                        class="img-thumbnail"
+                                        style="max-width: 150px; max-height: 150px;" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Social Links</label>
+                                <div formArrayName="socialLinks">
+                                    <div
+                                        *ngFor="let link of socialLinks.controls; let i=index"
+                                        [formGroupName]="i"
+                                        class="d-flex gap-2 mb-2">
+                                        <input class="form-control"
+                                            formControlName="icon"
+                                            placeholder="fa-facebook" />
+                                        <input class="form-control"
+                                            formControlName="url"
+                                            placeholder="https://example.com" />
+                                        <button type="button"
+                                            class="btn btn-sm btn-danger"
+                                            (click)="removeSocialLink(i)">X</button>
+                                    </div>
+                                </div>
+                                <button type="button"
+                                    class="btn btn-sm btn-success mt-2"
+                                    (click)="addSocialLink()">+ Add
+                                    Link</button>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input"
+                                    formControlName="status" />
+                                <label class="form-check-label">Status</label>
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="ourTeamForm.invalid">
+                                    {{ editingId ? 'Update' : 'Submit' }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Content List -->
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Team List</h6>
+                <a (click)="loadTeamContents()" class="refresh-btn"
+                    style="cursor:pointer">Refresh</a>
+            </div>
+            <div class="table-responsive">
+                <table
+                    class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-white">
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Profile Pic</th>
+                            <th scope="col">Social Links</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ourTeamContents; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.designation }}</td>
+                            <td>
+                                <img *ngIf="item.profile_image"
+                                    [src]="apiService.getBaseUrl() + '/' + item.profile_image"
+                                    alt="Profile"
+                                    width="50"
+                                    height="50" />
+
+                            </td>
+                            <!-- 👇 show multiple social links -->
+                            <td>
+                                <ng-container
+                                    *ngFor="let link of item.social_links">
+                                    <a [href]="link.url" target="_blank"
+                                        class="me-2">
+                                        <i [class]="link.icon"></i>
+                                    </a>
+                                </ng-container>
+                            </td>
+                            <td>{{ item.status == 1 ? 'Active' : 'Inactive'
+                                }}</td>
+                            <td class="d-flex gap-2">
+                                <button class="btn btn-sm btn-warning"
+                                    (click)="openForm(item)">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger"
+                                    (click)="openDeleteConfirm(item.id)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- Delete Confirmation -->
+        <div *ngIf="confirmDeleteId !== null" class="confirm-overlay">
+            <div class="confirm-box">
+                <p>Are you sure you want to delete this Profile?</p>
+                <button (click)="confirmDelete()"
+                    class="btn btn-sm btn-success">Yes</button>
+                <button (click)="cancelDelete()"
+                    class="btn btn-sm btn-danger">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content End -->

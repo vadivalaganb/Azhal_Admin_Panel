@@ -194,5 +194,18 @@ export class ApiService {
     updateStudentStatus(id: number, status: number): Observable<any> {
         return this.http.put<any>(`${this.baseUrl}/register.php`, { id, status });
     }
+    //Get all team members
+    getTeamMembers(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.baseUrl}/team_members.php`);
+    }
 
+    // Save (Add / Update) team member
+    saveTeamMember(formData: FormData): Observable<any> {
+        return this.http.post(`${this.baseUrl}/team_members.php`, formData);
+    }
+
+    // Delete member
+    deleteTeamMember(id: number): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/team_members.php?id=${id}`);
+    }
 }

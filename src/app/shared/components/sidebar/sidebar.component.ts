@@ -63,7 +63,8 @@ export class SidebarComponent implements OnInit {
           label: 'CMS Management', icon: 'fa fa-laptop', children: [
             { label: 'Home Page', link: '/home' },
             { label: 'About Page', link: '/about' },
-            { label: 'Services', link: '/service' }
+            { label: 'Service Page', link: '/service' },
+            { label: 'Our Team Page', link: '/ourteam' }
           ], open: false
         },
         { label: 'User List', icon: 'fas fa-users', link: '/user' },

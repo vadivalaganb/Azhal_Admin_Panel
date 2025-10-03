@@ -8,6 +8,7 @@ import { EmployeeComponent } from './pages/employee/employee.component';
 import { UserComponent } from './pages/user/user.component';
 import { ContactUsComponent } from './pages/contacus/contactus.component';
 import { StudentsComponent } from './pages/students/students.component';
+import { OurTeamComponent } from './pages/ourteam/ourteam.component';
 
 export const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -18,5 +19,6 @@ export const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'user', component: UserComponent },
   { path: 'contactus', component: ContactUsComponent },
-  { path: 'students', component: StudentsComponent }
+  { path: 'students', component: StudentsComponent },
+  { path: 'ourteam', component: OurTeamComponent }
 ];
