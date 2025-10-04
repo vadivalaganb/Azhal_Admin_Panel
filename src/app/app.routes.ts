@@ -9,6 +9,8 @@ import { UserComponent } from './pages/user/user.component';
 import { ContactUsComponent } from './pages/contacus/contactus.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { OurTeamComponent } from './pages/ourteam/ourteam.component';
+import { ProductComponent } from './pages/product/product.component';
+import { TestimonialComponent } from './pages/testimonial/testimonial.component';
 
 export const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -20,5 +22,7 @@ export const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'contactus', component: ContactUsComponent },
   { path: 'students', component: StudentsComponent },
-  { path: 'ourteam', component: OurTeamComponent }
+  { path: 'ourteam', component: OurTeamComponent },
+  { path: 'product', component: ProductComponent },
+  { path: 'testimonial', component: TestimonialComponent },
 ];

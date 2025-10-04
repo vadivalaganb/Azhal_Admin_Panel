@@ -208,4 +208,33 @@ export class ApiService {
     deleteTeamMember(id: number): Observable<any> {
         return this.http.delete(`${this.baseUrl}/team_members.php?id=${id}`);
     }
+
+    // ---------- Product Content Specific ----------
+    getProducts(): Observable<any[]> {
+        return this.get<any[]>('product_content.php');
+    }
+
+    saveProduct(data: any): Observable<any> {
+        return this.post<any>('product_content.php', data);
+    }
+
+    deleteProduct(id: number): Observable<any> {
+        return this.delete<any>(`product_content.php?id=${id}`);
+    }
+    // ---------------- Testimonials ----------------
+    getTestimonials(): Observable<any[]> {
+        return this.get<any[]>('testimonial.php?action=read');
+    }
+
+    saveTestimonial(body: FormData, id?: number): Observable<any> {
+        const action = id ? 'update' : 'create';
+        if (id) body.append('id', id.toString());
+        return this.post<any>(`testimonial.php?action=${action}`, body);
+    }
+
+    deleteTestimonial(id: number): Observable<any> {
+        const body = new FormData();
+        body.append('id', id.toString());
+        return this.post<any>('testimonial.php?action=delete', body);
+    }
 }

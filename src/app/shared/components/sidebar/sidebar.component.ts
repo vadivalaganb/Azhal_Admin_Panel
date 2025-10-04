@@ -64,13 +64,15 @@ export class SidebarComponent implements OnInit {
             { label: 'Home Page', link: '/home' },
             { label: 'About Page', link: '/about' },
             { label: 'Service Page', link: '/service' },
-            { label: 'Our Team Page', link: '/ourteam' }
+            { label: 'Product Page', link: '/product' },
+            { label: 'Our Team Page', link: '/ourteam' },
+            { label: 'Testimonial Page', link: '/testimonial' },
           ], open: false
         },
         { label: 'User List', icon: 'fas fa-users', link: '/user' },
         { label: 'Employee List', icon: 'fas fa-user-secret', link: '/employee' },
         { label: 'Contact Us', icon: 'fas fa-headset', link: '/contactus' },
-        { label: 'Registered Students', icon: 'fas fa-user-graduate', link: '/students' }
+        { label: 'Registered Students', icon: 'fas fa-user-graduate', link: '/students' },
       ],
       2: [
         {
