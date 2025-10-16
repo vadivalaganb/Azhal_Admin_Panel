@@ -5,11 +5,24 @@
 
         <!-- Add New Record Button -->
         <div
-            class="mb-3 text-end d-flex align-items-center justify-content-between">
-            <h3>Testimonial Records</h3>
-            <button class="btn btn-sm btn-danger" (click)="openForm()">
-                <i class="fa fa-plus"></i> Add Record
-            </button>
+            class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+            <h3 class="mb-0">Testimonial Records</h3>
+
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-sm btn-danger" (click)="openForm()">
+                    <i class="fa fa-plus"></i> Add Record
+                </button>
+
+                <button class="btn btn-sm btn-info text-white"
+                    (click)="generateInvite('intern')">
+                    <i class="fa fa-link"></i> Intern Link
+                </button>
+
+                <button class="btn btn-sm btn-success"
+                    (click)="generateInvite('client')">
+                    <i class="fa fa-link"></i> Client Link
+                </button>
+            </div>
         </div>
 
         <!-- Popup Form Modal -->
@@ -149,7 +162,23 @@
                 </table>
             </div>
         </div>
+        <!-- ✅ Show only when link is generated -->
+        <div class="invite-container" *ngIf="generatedLink">
+            <label class="invite-label">New Review Link:</label>
 
+            <div class="invite-box">
+                <input
+                    class="invite-input"
+                    type="text"
+                    [value]="generatedLink"
+                    readonly />
+                <button class="copy-btn" (click)="copyLink()">
+                    <i class="fa fa-copy"></i> Copy
+                </button>
+            </div>
+
+            <p *ngIf="copied" class="copied-msg">✅ Link copied to clipboard!</p>
+        </div>
         <!-- Delete Confirmation -->
         <div *ngIf="confirmDeleteId !== null" class="confirm-overlay">
             <div class="confirm-box">

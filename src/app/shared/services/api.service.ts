@@ -237,4 +237,18 @@ export class ApiService {
         body.append('id', id.toString());
         return this.post<any>('testimonial.php?action=delete', body);
     }
+    createInvite(type: 'intern' | 'client') {
+        const form = new FormData();
+        form.append('type', type);
+        return this.http.post<any>(
+            `${this.getBaseUrl()}/testimonial.php?action=create_invite`, form
+        );
+    }
+    // validateToken(token: string) {
+    //     return this.http.get<any>(`${this.getBaseUrl()}/testimonial.php?action=validate_token&token=${token}`);
+    // }
+
+    // submitReview(formData: FormData) {
+    //     return this.http.post<any>(`${this.getBaseUrl()}/testimonial.php?action=submit_review`, formData);
+    // }
 }

@@ -21,7 +21,10 @@ export class TestimonialComponent implements OnInit {
   confirmDeleteId: number | null = null;
   fallbackImage = 'assets/default-profile.png'; // default image if none uploaded
   previewFileUrl: string | null = null;
-
+  internTestimonials: any[] = [];
+  clientTestimonials: any[] = [];
+  generatedLink: string = '';
+  copied: boolean = false;
   constructor(private fb: FormBuilder, public apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -43,6 +46,8 @@ export class TestimonialComponent implements OnInit {
   loadTestimoniallist(): void {
     this.apiService.getTestimonials().subscribe(
       res => {
+        this.internTestimonials = res.filter((item: any) => item.type === 'intern' && item.status);
+        this.clientTestimonials = res.filter((item: any) => item.type === 'client' && item.status);
         // Map API response to consistent field names
         this.Testimoniallist = res.map((item: any) => ({
           id: item.id,
@@ -151,6 +156,28 @@ export class TestimonialComponent implements OnInit {
   // Helper to get image URL
   getImageUrl(image: string | null): string {
     return image ? `${this.apiService.getBaseUrl()}/${image}` : 'assets/default-profile.png';
+  }
+
+  generateInvite(type: 'intern' | 'client'): void {
+    this.apiService.createInvite(type).subscribe(
+      (res: any) => {
+        this.generatedLink = res.link;
+        this.copied = false;
+      },
+      (err) => console.error(err)
+    );
+  }
+
+  copyLink(): void {
+    navigator.clipboard.writeText(this.generatedLink).then(() => {
+      this.copied = true;
+
+      // Show copied message for 1 second, then close invite box
+      setTimeout(() => {
+        this.copied = false;
+        this.generatedLink = ''; // Hides the invite-container
+      }, 1000);
+    });
   }
 
 }

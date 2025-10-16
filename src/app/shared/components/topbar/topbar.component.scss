@@ -2,9 +2,15 @@
     color: #6C7293;
     cursor: pointer;
 }
+
 .client-logo {
     width: 46px;
 }
+
+.navbar-expand .navbar-nav .nav-link {
+    cursor: pointer;
+}
+
 // .sidebar-toggler {
 //   color: #ffffff;
 //   text-decoration: none;
@@ -12,12 +18,12 @@
 //   padding: 0.5rem;
 //   cursor: pointer;
 //   transition: all 0.3s ease;
-  
+
 //   &:hover {
 //     color: #0d6efd;
 //     transform: scale(1.1);
 //   }
-  
+
 //   &.active {
 //     color: #0d6efd;
 //   }

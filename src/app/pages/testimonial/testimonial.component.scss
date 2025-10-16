@@ -27,3 +27,99 @@ tr,
 th {
   white-space: nowrap;
 }
+
+
+.invite-container {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  max-width: 480px;
+  margin: 20px auto;
+}
+
+.invite-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.invite-box {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 6px;
+  border: 1px solid #ddd;
+}
+
+.invite-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+
+.copy-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: #0056b3;
+}
+
+.copied-msg {
+  color: #28a745;
+  margin-top: 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.invite-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.invite-btn:hover {
+  transform: translateY(-2px);
+}
+
+.invite-btn.intern {
+  background-color: #17a2b8;
+}
+
+.invite-btn.client {
+  background-color: #28a745;
+}
+.invite-container {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.invite-container.ng-leave {
+  opacity: 0;
+}
