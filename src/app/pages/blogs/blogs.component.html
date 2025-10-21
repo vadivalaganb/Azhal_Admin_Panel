@@ -1,0 +1,151 @@
+<div class="content container-fluid pt-4 px-4">
+
+    <!-- Header -->
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <h3>Blogs Records</h3>
+        <button class="btn btn-sm btn-danger" (click)="openForm()">
+            <i class="fa fa-plus"></i> Add Blog
+        </button>
+    </div>
+
+    <!-- Blog Form Modal -->
+    <div class="modal" *ngIf="showFormModal" style="display:block;">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary rounded p-4">
+
+                <div
+                    class="modal-header d-flex justify-content-between align-items-center">
+                    <h5>{{ editingId ? 'Edit' : 'Add' }} Blog</h5>
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="closeForm()">X</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="blogForm" (ngSubmit)="onSubmit()"
+                        enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label>Header Name</label>
+                            <input class="form-control"
+                                formControlName="header_name" />
+                            <small
+                                *ngIf="blogForm.get('header_name')?.invalid && blogForm.get('header_name')?.touched"
+                                class="text-danger">Header Name is
+                                required</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Category</label>
+                            <select class="form-select"
+                                formControlName="category_id">
+                                <option *ngFor="let cat of categories"
+                                    [value]="cat.id">{{ cat.name }}</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Short Description</label>
+                            <input class="form-control"
+                                formControlName="short_description" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Full Description</label>
+                            <textarea class="form-control"
+                                formControlName="description"
+                                rows="5"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Image</label>
+                            <input type="file" class="form-control"
+                                (change)="onFileChange($event)" />
+                        </div>
+
+                        <div
+                            *ngIf="editingId && currentImage && !profileImageFile"
+                            class="mb-3">
+                            <label>Current Image</label>
+                            <div>
+                                <img
+                                    [src]="api.getBaseUrl() + '/' + currentImage"
+                                    class="img-thumbnail"
+                                    style="max-width:150px;">
+                            </div>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input"
+                                formControlName="status" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="blogForm.invalid">
+                                {{ editingId ? 'Update' : 'Submit' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blogs List Table -->
+    <div class="bg-secondary text-center rounded p-4 mt-4">
+        <div class="d-flex justify-content-between mb-4">
+            <h6>Blogs List</h6>
+            <a (click)="loadBlogs()" class="refresh-btn" style="cursor:pointer">Refresh</a>
+        </div>
+
+        <div class="table-responsive">
+            <table
+                class="table table-bordered table-hover text-start align-middle">
+                <thead>
+                    <tr class="text-white">
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Header</th>
+                        <th>Category</th>
+                        <th>Short Desc</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let blog of blogslist; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td><img *ngIf="blog.file_path"
+                                [src]="api.getBaseUrl() + '/' + blog.file_path"
+                                class="rounded-circle" width="40"
+                                height="40"></td>
+                        <td>{{ blog.header_name }}</td>
+                        <td>{{ blog.category_name }}</td>
+                        <td>{{ blog.short_description }}</td>
+                        <td>{{ blog.description }}</td>
+                        <td>{{ blog.status ? 'Active' : 'Inactive' }}</td>
+                        <td class="d-flex gap-2">
+                            <button class="btn btn-sm btn-warning"
+                                (click)="openForm(blog)"><i
+                                    class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger"
+                                (click)="openDeleteConfirm(blog.id)"><i
+                                    class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation -->
+    <div *ngIf="confirmDeleteId" class="confirm-overlay">
+        <div class="confirm-box">
+            <p>Are you sure you want to delete this blog?</p>
+            <button (click)="confirmDelete()"
+                class="btn btn-success btn-sm me-2">Yes</button>
+            <button (click)="cancelDelete()"
+                class="btn btn-danger btn-sm">No</button>
+        </div>
+    </div>
+</div>

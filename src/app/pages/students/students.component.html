@@ -6,8 +6,9 @@
         <div class="bg-secondary text-center rounded p-4 mt-3">
             <div class="d-flex justify-content-between mb-3">
                 <h6>Student User List</h6>
-                <button class="btn btn-sm btn-primary"
-                    (click)="loadStudentlist()">Refresh</button>
+                <a class="refresh-btn"
+                    style="cursor:pointer"
+                    (click)="loadStudentlist()">Refresh</a>
             </div>
 
             <div class="table-responsive">

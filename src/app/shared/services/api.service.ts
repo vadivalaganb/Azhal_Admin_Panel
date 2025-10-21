@@ -251,4 +251,22 @@ export class ApiService {
     // submitReview(formData: FormData) {
     //     return this.http.post<any>(`${this.getBaseUrl()}/testimonial.php?action=submit_review`, formData);
     // }
+    
+    // BLOG MODULE SECTION — endpoints centralized here
+    getAllBlogs(): Observable<any> {
+        return this.get('blogs.php');
+    }
+
+    createOrUpdateBlog(payload: FormData): Observable<any> {
+        return this.post('blogs.php', payload);
+    }
+
+    deleteBlogById(id: number): Observable<any> {
+        return this.delete(`blogs.php?id=${id}`);
+    }
+
+    // Categories
+    getAllCategories(): Observable<any> {
+        return this.get('categories.php');
+    }
 }
