@@ -1,0 +1,182 @@
+<div class="content container-fluid pt-4 px-4">
+
+    <!-- Header -->
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <h3>Course Records</h3>
+        <button class="btn btn-sm btn-danger" (click)="openForm()">
+            <i class="fa fa-plus"></i> Add Course
+        </button>
+    </div>
+
+    <!-- Course Form Modal -->
+    <div class="modal" *ngIf="showFormModal" style="display:block;">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary rounded p-4">
+
+                <div
+                    class="modal-header d-flex justify-content-between align-items-center">
+                    <h5>{{ editingId ? 'Edit' : 'Add' }} Course</h5>
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="closeForm()">X</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()"
+                        enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label>Header Name</label>
+                            <input class="form-control"
+                                formControlName="header_name" />
+                            <small
+                                *ngIf="courseForm.get('header_name')?.invalid && courseForm.get('header_name')?.touched"
+                                class="text-danger">Header Name is
+                                required</small>
+                        </div>
+                        <div class="mb-3">
+                            <label>Short Description</label>
+                            <input class="form-control"
+                                formControlName="short_description" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Full Description</label>
+                            <textarea class="form-control"
+                                formControlName="description"
+                                rows="5"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Upload File</label>
+                            <input
+                                type="file"
+                                class="form-control"
+                                (change)="onFileChange($event)"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.mp4,.mov,.avi,.jpg,.jpeg,.png,.txt" />
+                            <small class="text-muted">
+                                Supported: PDF, DOC, PPT, XLS, MP4, Images, etc.
+                            </small>
+                        </div>
+
+                        <!-- Preview for existing file (edit mode) -->
+                        <div *ngIf="editingId && currentFile && !profileFile"
+                            class="mb-3">
+                            <label>Current File</label>
+                            <div>
+                                <ng-container
+                                    [ngSwitch]="getFileType(currentFile)">
+                                    <img
+                                        *ngSwitchCase="'image'"
+                                        [src]="api.getBaseUrl() + '/' + currentFile"
+                                        class="img-thumbnail"
+                                        style="max-width:150px;" />
+                                    <a
+                                        *ngSwitchDefault
+                                        [href]="api.getBaseUrl() + '/' + currentFile"
+                                        target="_blank"
+                                        class="btn btn-sm btn-outline-primary mt-2">View
+                                        File</a>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Course Duration</label>
+                            <input class="form-control"
+                                formControlName="course_duration" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Course Level</label>
+                            <input class="form-control"
+                                formControlName="course_level" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Course Instructor</label>
+                            <input class="form-control"
+                                formControlName="course_instructor" />
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input"
+                                formControlName="status" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="courseForm.invalid">
+                                {{ editingId ? 'Update' : 'Submit' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses List Table -->
+    <div class="bg-secondary text-center rounded p-4 mt-4">
+        <div class="d-flex justify-content-between mb-4">
+            <h6>Courses List</h6>
+            <a (click)="loadCourse()" class="refresh-btn"
+                style="cursor:pointer">Refresh</a>
+        </div>
+
+        <div class="table-responsive">
+            <table
+                class="table table-bordered table-hover text-start align-middle">
+                <thead>
+                    <tr class="text-white">
+                        <th>#</th>
+                        <th>Header</th>
+                        <th>Course Level</th>
+                        <th>Instructor</th>
+                        <th>Duration</th>
+                        <th>Short Description</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let course of courselist; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ course.header_name }}</td>
+                        <td>{{ course.course_level }}</td>
+                        <td>{{ course.course_instructor }}</td>
+                        <td>{{ course.course_duration }}</td>
+                        <td>{{ course.short_description }}</td>
+                        <td>{{ course.description }}</td>
+                        <td>
+                            <span class="badge"
+                                [ngClass]="course.status == '1' ? 'bg-success' : 'bg-secondary'">
+                                {{ course.status == '1' ? 'Active' : 'Inactive'
+                                }}
+                            </span>
+                        </td>
+                        <td class="d-flex gap-2">
+                            <button class="btn btn-sm btn-warning"
+                                (click)="openForm(course)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger"
+                                (click)="openDeleteConfirm(course.id)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- Delete Confirmation -->
+    <div *ngIf="confirmDeleteId" class="confirm-overlay">
+        <div class="confirm-box">
+            <p>Are you sure you want to delete this course?</p>
+            <button (click)="confirmDelete()"
+                class="btn btn-success btn-sm me-2">Yes</button>
+            <button (click)="cancelDelete()"
+                class="btn btn-danger btn-sm">No</button>
+        </div>
+    </div>
+</div>

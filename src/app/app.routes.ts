@@ -12,6 +12,7 @@ import { OurTeamComponent } from './pages/ourteam/ourteam.component';
 import { ProductComponent } from './pages/product/product.component';
 import { TestimonialComponent } from './pages/testimonial/testimonial.component';
 import { BlogsComponent } from './pages/blogs/blogs.component';
+import { CourseComponent } from './pages/course/course.component';
 
 export const routes: Routes = [
   { path: '', component: SigninComponent },
@@ -26,5 +27,6 @@ export const routes: Routes = [
   { path: 'ourteam', component: OurTeamComponent },
   { path: 'product', component: ProductComponent },
   { path: 'testimonial', component: TestimonialComponent },
-  { path: 'blogs', component: BlogsComponent }
+  { path: 'blogs', component: BlogsComponent },
+  { path: 'course', component: CourseComponent },
 ];

@@ -22,7 +22,7 @@ export class BlogsComponent implements OnInit {
   editingId: number | null = null;
   confirmDeleteId: number | null = null;
 
-  constructor(private fb: FormBuilder, public api: ApiService) {}
+  constructor(private fb: FormBuilder, public api: ApiService) { }
 
   ngOnInit(): void {
     this.blogForm = this.fb.group({
@@ -85,7 +85,13 @@ export class BlogsComponent implements OnInit {
     if (this.blogForm.invalid) return;
 
     const formData = new FormData();
-    Object.entries(this.blogForm.value).forEach(([key, val]) => formData.append(key, String(val)));
+    Object.entries(this.blogForm.value).forEach(([key, val]) => {
+      if (key === 'status') {
+        formData.append(key, val ? '1' : '0');
+      } else {
+        formData.append(key, String(val));
+      }
+    });
     if (this.profileImageFile) formData.append('file', this.profileImageFile);
     if (this.editingId) formData.append('id', String(this.editingId));
 
@@ -94,6 +100,7 @@ export class BlogsComponent implements OnInit {
         if (res.success) {
           this.loadBlogs();
           this.closeForm();
+          // alert(res.message);
         } else {
           alert(res.error || 'Error saving blog');
         }

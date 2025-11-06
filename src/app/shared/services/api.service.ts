@@ -269,4 +269,17 @@ export class ApiService {
     getAllCategories(): Observable<any> {
         return this.get('categories.php');
     }
+
+    // COURSE MODULE SECTION — endpoints centralized here
+    getAllCourse(): Observable<any> {
+        return this.get('course.php');
+    }
+
+    createOrUpdateCourse(payload: FormData): Observable<any> {
+        return this.post('course.php', payload);
+    }
+
+    deleteCourseById(id: number): Observable<any> {
+        return this.delete(`course.php?id=${id}`);
+    }
 }

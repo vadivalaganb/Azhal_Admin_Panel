@@ -74,6 +74,7 @@ export class SidebarComponent implements OnInit {
         { label: 'Contact Us', icon: 'fas fa-headset', link: '/contactus' },
         { label: 'Registered Students', icon: 'fas fa-user-graduate', link: '/students' },
         { label: 'Blogs', icon: 'fas fa-blog', link: '/blogs' },
+        { label: 'Course', icon: 'fas fa-university', link: '/course' },
       ],
       2: [
         {
