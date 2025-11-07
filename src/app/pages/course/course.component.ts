@@ -37,6 +37,7 @@ export class CourseComponent implements OnInit {
       course_duration: ['', Validators.required],
       course_level: ['', Validators.required],
       course_instructor: ['', Validators.required],
+      max_students: ['', Validators.required, Validators.pattern(/^[0-9]+$/), Validators.min(1)],
       status: [true]
     });
   }
@@ -61,6 +62,7 @@ export class CourseComponent implements OnInit {
         course_duration: course.course_duration,
         course_level: course.course_level,
         course_instructor: course.course_instructor,
+        max_students: course.max_students,
         status: !!course.status
       });
     } else {
