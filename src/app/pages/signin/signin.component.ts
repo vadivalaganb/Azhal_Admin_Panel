@@ -16,7 +16,7 @@ import { UserService } from '../../shared/services/user.service';
 export class SigninComponent {
   email = '';
   password = '';
-  rememberMe = false;
+  // rememberMe = false;
   error = '';
 
   constructor(private apiService: ApiService, private router: Router, private userService: UserService) { }
@@ -27,7 +27,7 @@ export class SigninComponent {
       signin: true,              // <-- required field
       email: this.email,
       password: this.password,
-      rememberMe: this.rememberMe
+      // rememberMe: this.rememberMe
     }).subscribe({
       next: (res) => {
         if (res.success) {
